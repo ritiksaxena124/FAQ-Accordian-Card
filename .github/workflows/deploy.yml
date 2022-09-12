@@ -1,0 +1,27 @@
+name: Deploying Project on vercel
+on: [push]
+jobs:
+  build-app:
+    runs-on: ubuntu-latest
+    env: 
+      CI: false
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Build Command
+        run:  npm run build
+  deploy-app:
+    needs: build-app
+    runs-on: ubuntu-latest
+    env:
+      CI: false
+      VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Command
+        run: vercel deploy --prod --token=$VERCEL_TOKEN
+      
