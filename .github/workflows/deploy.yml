@@ -1,4 +1,4 @@
-name: Deploying Project on vercel
+name: Deploy Project on vercel
 on: [push]
 jobs:
   build-app:
